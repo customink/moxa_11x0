@@ -26,7 +26,7 @@
 #define MXU1_ACTIVE_CONFIG			2
 
 /* Vendor and product ids */
-#define MXU1_VENDOR_ID				0x110a	
+#define MXU1_VENDOR_ID				0x110a
 #define MXU1_1110_PRODUCT_ID			0x1110
 #define MXU1_1130_PRODUCT_ID			0x1130
 #define MXU1_1150_PRODUCT_ID			0x1150

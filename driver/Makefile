@@ -32,7 +32,7 @@ module:
 	@echo "  #                                                                 #"
 	@echo "  #               release date : $(REL_DATE)                         #"
 	@echo "  *******************************************************************"
-	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules 
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
 endif
 
 remove:
@@ -40,7 +40,7 @@ remove:
 	rm -f /lib/modules/$(KVER)/misc/$(TARGET).ko
 	depmod -a
 
-clean: 
+clean:
 	rm -f *.o
 	rm -f .*.o.cmd
 	rm -f *.symvers

@@ -35,7 +35,7 @@
  *	Added interrupt_in_endpointAddress and bulk_in_endpointAddress to help
  *	fix bug with urb->dev not being set properly, now that the usb core
  *	needs it.
- * 
+ *
  * (09/11/2000) gkh
  *	Added usb_serial_debug_data function to help get rid of #DEBUG in the
  *	drivers.
@@ -52,7 +52,7 @@
  * (07/19/2000) gkh, pberger, and borchers
  *	Modifications to allow usb-serial drivers to be modules.
  *
- * 
+ *
  */
 
 
@@ -293,7 +293,7 @@ static inline void usb_set_serial_data (struct usb_serial *serial, void *data)
  *	but before the device has been fully initialized by the usb_serial
  *	subsystem.  Use this function to download any firmware to the device,
  *	or any other early initialization that might be needed.
- *	Return 0 to continue on with the initialization sequence.  Anything 
+ *	Return 0 to continue on with the initialization sequence.  Anything
  *	else will abort it.
  * @attach: pointer to the driver's attach function.
  *	This will be called when the struct usb_serial structure is fully set
@@ -473,14 +473,14 @@ static inline int port_paranoia_check (struct usb_serial_port *port, const char 
 }
 
 
-static inline struct usb_serial* get_usb_serial (struct usb_serial_port *port, const char *function) 
-{ 
+static inline struct usb_serial* get_usb_serial (struct usb_serial_port *port, const char *function)
+{
 	/* if no port was specified, or it fails a paranoia check */
-	if (!port || 
+	if (!port ||
 		port_paranoia_check (port, function) ||
 		serial_paranoia_check (port->serial, function)) {
 		/* then say that we don't have a valid usb_serial thing, which will
-		 * end up genrating -ENODEV return values */ 
+		 * end up genrating -ENODEV return values */
 		return NULL;
 	}
 
@@ -502,7 +502,7 @@ static inline void usb_serial_debug_data (const char *file, const char *function
 
 	if (!debug)
 		return;
-	
+
 	printk (KERN_DEBUG "%s: %s - length = %d, data = ", file, function, size);
 	for (i = 0; i < size; ++i) {
 		printk ("%.2x ", data[i]);

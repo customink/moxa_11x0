@@ -1,14 +1,14 @@
 Vrsion Number:	Ver1.2
-Product Line:	MOXA UPort 1100 Series 
+Product Line:	MOXA UPort 1100 Series
 Platform:    	Linux kernel 2.6.5 & above, x86 & x64.
 Company:	Moxa Inc.
-Date:		05/19/2009	
+Date:		05/19/2009
 
 Support Product:
 ===============
 UPort 1110/1130/1130I/1150/1150I
 
-Tested Linux: 
+Tested Linux:
 =============
 Kernel 2.6.29
 Fedora Core 10                  (2.6.27)
@@ -37,7 +37,7 @@ Red Hat Enterprise Linux AS 4	(2.6.9)
 
 Release Note:
 ==============
-Ver1.2 
+Ver1.2
 1. Add a new model UPort 1130I.
 2. Support kernel upto 2.6.29
 
@@ -51,7 +51,7 @@ Ver1.1.5
 1. Support kernel upto 2.6.26
 
 Ver1.1.3
-1. Fix bug of compiling fail on FC 2 2.6.5 
+1. Fix bug of compiling fail on FC 2 2.6.5
 
 Ver1.1.1
 1. Fix bug of installing driver with error -5 on 2.6.24.
