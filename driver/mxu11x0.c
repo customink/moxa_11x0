@@ -114,13 +114,13 @@ struct mxu1_device {
 /* Function Declarations */
 
 static int mxu1_startup(struct usb_serial *serial);
-static void mxu1_shutdown(struct usb_serial *serial);
+static void mxu1_release(struct usb_serial *serial);
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(2,6,27))
 static int mxu1_open(struct usb_serial_port *port, struct file *file);
 static void mxu1_close(struct usb_serial_port *port, struct file *file);
 #else
-static int mxu1_open(struct tty_struct *tty, struct usb_serial_port *port, struct file *file);
-static void mxu1_close(struct tty_struct *tty, struct usb_serial_port *port, struct file *file);
+int mxu1_open(struct tty_struct *tty, struct usb_serial_port *port);
+void mxu1_close(struct usb_serial_port *port);
 #endif
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(2,6,10))
 static int mxu1_write (struct usb_serial_port *port, int from_user,const unsigned char *data, int count);
@@ -302,7 +302,7 @@ static struct usb_serial_device_type mxu1110_1port_device = {
 #endif
 	.num_ports		= 1,
 	.attach			= mxu1_startup,
-	.shutdown		= mxu1_shutdown,
+	.release		= mxu1_release,
 	.open			= mxu1_open,
 	.close			= mxu1_close,
 	.write			= mxu1_write,
@@ -343,7 +343,7 @@ static struct usb_serial_device_type mxu1130_1port_device = {
 #endif
 	.num_ports		= 1,
 	.attach			= mxu1_startup,
-	.shutdown		= mxu1_shutdown,
+	.release = mxu1_release,
 	.open			= mxu1_open,
 	.close			= mxu1_close,
 	.write			= mxu1_write,
@@ -384,7 +384,7 @@ static struct usb_serial_device_type mxu1150_1port_device = {
 #endif
 	.num_ports		= 1,
 	.attach			= mxu1_startup,
-	.shutdown		= mxu1_shutdown,
+	.release = mxu1_release,
 	.open			= mxu1_open,
 	.close			= mxu1_close,
 	.write			= mxu1_write,
@@ -425,7 +425,7 @@ static struct usb_serial_device_type mxu1151_1port_device = {
 #endif
 	.num_ports		= 1,
 	.attach			= mxu1_startup,
-	.shutdown		= mxu1_shutdown,
+	.release = mxu1_release,
 	.open			= mxu1_open,
 	.close			= mxu1_close,
 	.write			= mxu1_write,
@@ -465,7 +465,7 @@ static struct usb_serial_device_type mxu1131_1port_device = {
 #endif
 	.num_ports		= 1,
 	.attach			= mxu1_startup,
-	.shutdown		= mxu1_shutdown,
+	.release = mxu1_release,
 	.open			= mxu1_open,
 	.close			= mxu1_close,
 	.write			= mxu1_write,
@@ -701,7 +701,7 @@ free_mxdev:
 }
 
 
-static void mxu1_shutdown(struct usb_serial *serial)
+static void mxu1_release(struct usb_serial *serial)
 {
 	int i;
 	struct mxu1_device *mxdev = usb_get_serial_data(serial);
@@ -725,7 +725,7 @@ static void mxu1_shutdown(struct usb_serial *serial)
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(2,6,27))
 static int mxu1_open(struct usb_serial_port *port, struct file *file)
 #else
-static int mxu1_open(struct tty_struct *tty, struct usb_serial_port *port, struct file *file)
+int mxu1_open(struct tty_struct *tty, struct usb_serial_port *port)
 #endif
 {
 	struct mxu1_port *mxport = usb_get_serial_port_data(port);
@@ -886,7 +886,7 @@ up_sem:
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(2,6,27))
 static void mxu1_close(struct usb_serial_port *port, struct file *file)
 #else
-static void mxu1_close(struct tty_struct *tty, struct usb_serial_port *port, struct file *file)
+void mxu1_close(struct usb_serial_port *port)
 #endif
 {
 	struct mxu1_device *mxdev;
