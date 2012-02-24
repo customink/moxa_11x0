@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require 'serialport'
+require 'progress_bar'
+
+device      = ARGV[0].nil? ? '/dev/ttyUSB0' : ARGV[0]
+
+puts "Testing (this may take a while)"
+puts "usage: serial_test <iterations> <delay> <device>\n"
+
+tests = [
+  {iterations: 10000, delay: 0, send_count: 1},
+  {iterations: 10, delay: 5, send_count: 1},
+  {iterations: 10, delay: 0, send_count: 1000}
+]
+
+def tester(name, iterations, delay, send_count, device)
+  puts "Test: #{name}"
+  data = '00000000000000000000'
+  begin
+    bar = ProgressBar.new(iterations, :bar, :percentage, :eta)
+    iterations.downto(1) do
+      port = SerialPort.new(device, 9600, 7, 1, SerialPort::NONE)
+      send_count.downto(1) { port.write(data) }
+      port.close
+      sleep delay
+      bar.increment!
+    end
+    puts "pass"
+  rescue Exception => e
+    puts "fail\n#{e}"
+  end
+end
+
+tests.each_with_index { |t, i| tester(i, t[:iterations], t[:delay], t[:send_count], device ) }
+
