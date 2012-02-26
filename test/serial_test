@@ -25,9 +25,9 @@ def tester(name, iterations, delay, send_count, device)
       sleep delay
       bar.increment!
     end
-    puts "pass"
+    puts "PASS"
   rescue Exception => e
-    puts "fail\n#{e}"
+    puts "FAIL: #{e}"
   end
 end
 
